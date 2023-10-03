@@ -1,0 +1,11 @@
+{
+    "url": "echo",
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "payload": {
+        "attribute1": "attribute1",
+        "attribute2": 2
+    }
+}

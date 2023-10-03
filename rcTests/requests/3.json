@@ -1,0 +1,9 @@
+{
+    "url": "echo",
+    "method": "POST",
+    "payload": [{
+        "N": 1
+    }, {
+        "N": 2
+    }]
+}

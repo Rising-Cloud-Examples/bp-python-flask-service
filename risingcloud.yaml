@@ -1,0 +1,72 @@
+# Make sure you push the latest risingcloud.yaml file by running
+# `risingcloud push` after you make any changes here. If you don't,
+# the changes won't be reflected in the app when it is built.
+# See https://risingcloud.com/docs/config-glossary for more details
+# about individual fields and how they operate.
+
+# The name of the app is what is displayed on the ui for developers. By default
+# this matches the url. However, unlike the url, this may be changed as desired.
+name: bp-python-flask-service
+
+# The app url is a unique value created during app initialization. Once it is
+# created, it cannot be changed. This is where you will send requests:
+# https://bp-python-flask-service.risingcloud.app
+# This is static. Don't edit this value after creation!
+url: bp-python-flask-service
+
+# The team ID is the internal ID of the team that owns the app.
+# This is static. Don't edit this value after creation!
+team: null
+
+# The mode describes how the app is deployed in the Rising Cloud infrastructure.
+# "web" indicates the the app has a dockerfile defined by the user, and that
+# dockerfile is hosting an api that is accessible through ipv6. It also expects
+# that the dockerfile exposes the port needed to communicate with the app.
+mode: web
+
+# This is the port your web service is listening on. Ensure that this value
+# matches the value defined in your code and the port exposed in your
+# Dockerfile. If either of those are mismatched, the app will not be able
+# to recieve incoming requests and will just idle.
+port: 8080
+
+# Workspace is simply an organizational tool. You may change this  value and the
+# app will be change the workspace it appears under in the ui. You do not have
+# to create a new workspace, simply changing the value here will update the UI.
+workspace: Sandbox
+
+# List of environment variables to include in your app in this format:
+# env:
+#  - key1: value1
+#  - key2: value2
+#  ...
+#  - keyN: valueN
+# These values are automatically loaded into the deployed app as environment
+# variables. A common pattern if you have separate deployments of the same code
+# in different environments, is to have multiple risingcloud.yaml files in the
+# project dir, named risincloud-{env}.yaml
+env:
+ - DEV: False
+ - HOST: ::
+ - PORT: 8080
+
+# Min and max workers determines the scaling bounds for your application. Rising
+# Cloud will never scale below the minWorkers value, and never scale above the
+# maxWorkers value.
+minWorkers: 0
+maxWorkers: 8
+
+# For web tasks, Rising Cloud needs to know how many resources you want to
+# reserve for the task to function correctly. Putting these too low runs the
+# risk of your app running out of memory or drastically slowing down.
+maxCPU: 1
+maxRAM: 1000
+
+# This is the amount of short-term storage space allocated to each worker in MB.
+# Files created during runtime will count against this total, but the worker
+# image itself does not. Ensure this value is large enough to run the OS.
+maxStorage: 2000
+
+# The maximum number of concurrent connections Rising Cloud will allow your app
+# to have before it starts rejecting new connection requests.
+maxConn: 500
