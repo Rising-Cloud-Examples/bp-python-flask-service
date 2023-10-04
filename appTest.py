@@ -1,5 +1,4 @@
-import sys
-import json
+import os, sys
 import requests
 
 from rcFunctions import readRequest, writeResponse
@@ -33,4 +32,23 @@ def testRequest(fileName: str):
     writeResponse(fileName, responseData)
 
 if __name__ == "__main__":
-    testRequest(sys.argv[1])
+
+    # If only param is passed in, we assume we are running over every test file.
+    if len(sys.argv) == 1:
+        for fileName in os.listdir("./rcTests/requests"):
+
+            # The only files which are valid to run are .json files. And in
+            # order to run testRequest(), we just need the name without the
+            # file extension
+            splitFile = fileName.split(".")
+            if len(splitFile) != 2:
+                raise Warning(f"File rcTests/requests/{fileName} has no extension")
+            if "json" != splitFile[1]: continue
+            name = splitFile[0]
+
+            # If here, we have a valid test so we will run it
+            testRequest(name)
+    
+    # Otherwise, we test the one file passed in and move on.
+    else:
+        testRequest(sys.argv[1])

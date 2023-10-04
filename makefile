@@ -31,9 +31,9 @@ rc-kill-container:
 # Don't include the full path to the test. The command will automatically
 # look for it in the ./rcTests/requests folder and add the .json extension.
 rc-test-single:
-	docker exec bp-python-flask-service /bin/sh ./rcFunctions/runTest.sh $(f)
+	docker exec bp-python-flask-service python3 appTest.py $(f)
 
 # Iterates through every test file in ./rcTests/requests and writes the output
 # of every test file to ./rcTests/responses under the same name.
 rc-test-all:
-	docker exec bp-python-flask-service /bin/sh ./rcFunctions/runTests.sh
+	docker exec bp-python-flask-service python3 appTest.py

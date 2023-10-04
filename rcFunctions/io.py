@@ -9,10 +9,10 @@ def readRequest(fileName: str) -> typing.Tuple[
     local rcTests folder. Each request should have a few headers defined so the
     test scripts can infer how to process them. Each request.json file in the
     rcTests/requests folder should have 5 attributes.
-        "url": The api endpoint to test against
+        "url" [required]: The api endpoint to test against
         "params" [optional]: Normal url params which will be formated
             by python's requests package
-        "method": ["GET" || "POST" || "PUT" || "PATCH" || "DELETE"]
+        "method" [required]: ["GET" || "POST" || "PUT" || "PATCH" || "DELETE"]
         "headers" [optional]: These are passed into the request as headers
         "payload" [optional]: The raw data passed into the request
     Each of these attributes are returned as a tuple in that order so that they

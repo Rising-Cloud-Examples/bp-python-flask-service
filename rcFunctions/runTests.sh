@@ -1,1 +1,0 @@
-for f in /app/app/rcTests/requests/*; do python3 appTest.py $f; done
