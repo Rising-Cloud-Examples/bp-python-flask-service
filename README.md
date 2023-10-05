@@ -49,7 +49,17 @@ https://docs.docker.com/config/daemon/ipv6/
 1. Customize the docker daemon to allow for ipv6 traffic in your test
 container as Rising Cloud workers only support ipv6 traffic. In order to do
 this, ...
-TODO: Finish this thing
+```json
+{
+    ...
+    "experimental": true,
+    "ipv6": true,
+    "fixed-cidr-v6": "2001:db8:1::/64",
+    "ip6tables": true
+}
+```
+TODO: Finish this thing. Show example for docker desktop (easy) or show the
+location of the file for mac, linux, and windows distributions.
 1. Run the build make command: `make rc-build-test-image`. This will run a
 docker build command that creates your base image and names it
 bp-python-flask-service.
@@ -62,7 +72,7 @@ changes to your code without requiring a docker build every time.
 `/rcTests/reqeusts` folder. As long as they are named in the format
 `{TEST_NAME}.json`, are proper json, and conform to the below object
 specifications, they will work fine!
-```
+```json
 {
     "url" [required]: The api endpoint to test against
     "params" [optional]: Normal url params which will be formated

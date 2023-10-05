@@ -26,8 +26,6 @@ def testRequest(fileName: str):
     try: responseData = response.json()
     except: pass
 
-    print(responseData)
-
     # Write the response to be viewed and/or validated later
     writeResponse(fileName, responseData)
 
