@@ -37,18 +37,18 @@ workspace: Sandbox
 
 # List of environment variables to include in your app in this format:
 # env:
-#  - key1: value1
-#  - key2: value2
+#  key1: value1
+#  key2: value2
 #  ...
-#  - keyN: valueN
+#  keyN: valueN
 # These values are automatically loaded into the deployed app as environment
 # variables. A common pattern if you have separate deployments of the same code
 # in different environments, is to have multiple risingcloud.yaml files in the
 # project dir, named risincloud-{env}.yaml
 env:
- - DEV: False
- - HOST: ::
- - PORT: 8080
+  DEV: False
+  HOST: '::'
+  PORT: 8080
 
 # Min and max workers determines the scaling bounds for your application. Rising
 # Cloud will never scale below the minWorkers value, and never scale above the

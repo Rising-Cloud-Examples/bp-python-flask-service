@@ -1,8 +1,7 @@
 # For simple flask apps, a small base image like python:alpine is prefered as
 # it is less resource intensive. This can be modified accordingly if your app
-# has more rigorous runtime requirements. Keep in mind, if this is modified,
-# there is a good chance you will need to modify the testing commands in the
-# makefile and the appTest.py file based on the new image's compatibility.
+# has more rigorous runtime requirements. The only compatibility requirement
+# for your image to run on Rising Cloud is that the base image is linux based.
 FROM python:alpine
 
 # Because we begin from an image that already has python installed, we just

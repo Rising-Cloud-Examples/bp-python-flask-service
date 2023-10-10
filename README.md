@@ -43,9 +43,12 @@ provided makefile gives simple bindings necessary to create the image, run the
 container, and test requests.
 
 To get the local docker container up and running for testing and development:
-TODO: Figure out how to do this first pointautomatically for people. Or at
+TODO: Figure out how to do this first point automatically for people. Or at
 least to transparently show them how/why this needs to be done.
 https://docs.docker.com/config/daemon/ipv6/
+TODO: Also figure out if this is even necessary... If the service is bound to
+an ipv6 port, but ipv6 also supports ipv4, can they stil connect/test locally
+by talking http://localhost?
 1. Customize the docker daemon to allow for ipv6 traffic in your test
 container as Rising Cloud workers only support ipv6 traffic. In order to do
 this, ...
@@ -60,37 +63,28 @@ this, ...
 ```
 TODO: Finish this thing. Show example for docker desktop (easy) or show the
 location of the file for mac, linux, and windows distributions.
-1. Run the build make command: `make rc-build-test-image`. This will run a
+1. Run the local build command: `risingcloud build --local`. This will run a
 docker build command that creates your base image and names it
 bp-python-flask-service.
-1. Start up the test container: `make rc-start-container`. This spins
-up the image that was just built and keeps it running in the background. It
-will automatically delete any old running containers of the same name for you.
-It will also attach a volume to the container so that you can easily test
+1. Start up the test container: `risingcloud run -s`. This spins up the image
+that was just built and keeps it running in the background. It will
+automatically delete any old running containers of the same name for
+you. It will also attach a volume to the container so that you can easily test
 changes to your code without requiring a docker build every time.
-1. Populate any test request files you'd like to be able to test in the
-`/rcTests/reqeusts` folder. As long as they are named in the format
-`{TEST_NAME}.json`, are proper json, and conform to the below object
-specifications, they will work fine!
-```json
-{
-    "url" [required]: The api endpoint to test against
-    "params" [optional]: Normal url params which will be formated
-        by python's requests package
-    "method" [required]: ["GET" || "POST" || "PUT" || "PATCH" || "DELETE"]
-    "headers" [optional]: These are passed into the request as headers
-    "payload" [optional]: The raw data passed into the request
-}
-```
-1. To run a single request test through: `make rc-test-single f={TEST_NAME}`.
-This will load the specified request and then send it to the deployed container.
-The response will be located at `./rcTests/responses/{TEST_NAME}` For this
-command to work, the file `/rcTests/requests/{TEST_NAME}.json` must exist.
-1. To run every test in the `/rcTests/requests/` folder in sequence:
-`make rc-test-all`.This will essentially run the `rc-test-single` over
-and over for every test file defined.
+1. Open up the `requestCollection.json` file in either Insomnia or Postman.
+Modify the collection as you please, but this should give a good starting point
+on how you can interact with your application locally and when it is deployed.
+1. Send requests via Postman or Insomnia to your local test container to
+verify it is working as intended.
 1. Whenever you're done testing, you can clean up the docker environment with
-`rc-kill-container`.
+`risingcloud kill-local`.
+
+For all the above commands, you can expedite testing and remove the prompt
+"`No task URL provided. Use "bp-python-flask-service" as your task URL? [y/n]`"
+by providing the command with the taskURL in question on the end of the command.
+- ex. 1: `risingcloud build --local` -> `risingcloud build --local bp-python-flask-service`
+- ex. 2: `risingcloud run -s` -> `risingcloud run -s bp-python-flask-service`
+- ex. 3: `risingcloud kill-local` -> `risingcloud kill-local bp-python-flask-service`
 
 ### Building/Deploying
 Once you have locally tested your app and verified it's functioning as expected,
@@ -107,6 +101,13 @@ by pressing the "Deploy" button on the top right of the page. After the task has
 succesfully been started you can send jobs to your worker from anywhere.
 Rising Cloud automatically registers a url for you so you can communicate with
 your task. The URL for this task is https://bp-python-flask-service.risingcloud.app.
+
+### Securing your App
+You can navigate to this page
+https://my.risingcloud.com/task/bp-python-flask-service/security and check
+"Require app users use an API key to send jobs to this task." to require a key
+to be included when commnunicating with your app. The key should be included
+as "X-RisingCloud-Auth" in the headers.
 
 ### Adding Custom Functionality
 This repository is boilerplate for a reason. Please add, edit, and customize
