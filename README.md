@@ -35,7 +35,7 @@ web services is located [here](https://risingcloud.com/docs/web-service)
 There are two ways to test your application locally. You could just run your
 application from `app.py` locally and run tests by also running the
 `appTests.py` locally and having them comunicate in your host machine.
-request.json in the root folder and run `python3 main.py`. If you are unable
+request.json in the root folder and run `python3 app.py`. If you are unable
 to utilize docker for any reason, this is how you will need to test. However,
 it is a much prefered paradigm to test in a docker container. By running
 in a container, you ensure that your testing is consistent with deployment. The
@@ -43,26 +43,6 @@ provided makefile gives simple bindings necessary to create the image, run the
 container, and test requests.
 
 To get the local docker container up and running for testing and development:
-TODO: Figure out how to do this first point automatically for people. Or at
-least to transparently show them how/why this needs to be done.
-https://docs.docker.com/config/daemon/ipv6/
-TODO: Also figure out if this is even necessary... If the service is bound to
-an ipv6 port, but ipv6 also supports ipv4, can they stil connect/test locally
-by talking http://localhost?
-1. Customize the docker daemon to allow for ipv6 traffic in your test
-container as Rising Cloud workers only support ipv6 traffic. In order to do
-this, ...
-```json
-{
-    ...
-    "experimental": true,
-    "ipv6": true,
-    "fixed-cidr-v6": "2001:db8:1::/64",
-    "ip6tables": true
-}
-```
-TODO: Finish this thing. Show example for docker desktop (easy) or show the
-location of the file for mac, linux, and windows distributions.
 1. Run the local build command: `risingcloud build --local`. This will run a
 docker build command that creates your base image and names it
 bp-python-flask-service.
@@ -74,6 +54,8 @@ changes to your code without requiring a docker build every time.
 1. Open up the `requestCollection.json` file in either Insomnia or Postman.
 Modify the collection as you please, but this should give a good starting point
 on how you can interact with your application locally and when it is deployed.
+In Postman, the `{{host}}` and `{{auth}}` variables are set in the collection
+variables. In Insomnia, they will be imported under the Environment Overrides.
 1. Send requests via Postman or Insomnia to your local test container to
 verify it is working as intended.
 1. Whenever you're done testing, you can clean up the docker environment with

@@ -2,7 +2,7 @@
 # it is less resource intensive. This can be modified accordingly if your app
 # has more rigorous runtime requirements. The only compatibility requirement
 # for your image to run on Rising Cloud is that the base image is linux based.
-FROM python:alpine
+FROM python:3.11-alpine
 
 # Because we begin from an image that already has python installed, we just
 # need to copy in the requirements and run the pip install command
