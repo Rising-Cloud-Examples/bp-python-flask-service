@@ -1,9 +1,3 @@
-# Make sure you push the latest risingcloud.yaml file by running
-# `risingcloud push` after you make any changes here. If you don't,
-# the changes won't be reflected in the app when it is built.
-# See https://risingcloud.com/docs/config-glossary for more details
-# about individual fields and how they operate.
-
 # The name of the app is what is displayed on the ui for developers. By default
 # this matches the url. However, unlike the url, this may be changed as desired.
 name: bp-python-flask-service
@@ -44,16 +38,15 @@ workspace: Sandbox
 # These values are automatically loaded into the deployed app as environment
 # variables. A common pattern if you have separate deployments of the same code
 # in different environments, is to have multiple risingcloud.yaml files in the
-# project dir, named risincloud-{env}.yaml
+# project dir, named risingcloud-{env}.yaml
 env:
-  DEV: False
-  HOST: '::'
-  PORT: 8080
+    HOST: '::'
+    PORT: "8080"
 
 # Min and max workers determines the scaling bounds for your application. Rising
 # Cloud will never scale below the minWorkers value, and never scale above the
 # maxWorkers value.
-minWorkers: 0
+minWorkers: 1
 maxWorkers: 8
 
 # For web tasks, Rising Cloud needs to know how many resources you want to
